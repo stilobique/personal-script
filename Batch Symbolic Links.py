@@ -1,7 +1,7 @@
 import os
 
-path_script = r"E:\WIP Git\Blender Addons"
-path_blender_script = r"C:\Users\Aurélien\AppData\Roaming\Blender Foundation\Blender"
+path_script = r"E:\WORKS\Git\Blender Addons"
+path_blender_script = r"C:\Users\Sheep\AppData\Roaming\Blender Foundation\Blender"
 addons = r"\scripts\addons"
 blender_version = []
 all_script = []
