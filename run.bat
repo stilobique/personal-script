@@ -1,3 +1,3 @@
-python.exe "E:\WIP Git\Scripts Pythons\Batch Symbolic Links.py"
+python.exe "E:\WORKS\Git\Personal Scripts\personal-script\update_blender_2_8.py"
 
 pause
