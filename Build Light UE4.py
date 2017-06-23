@@ -100,12 +100,6 @@ for i in range(len(lvl_suffix)):
 # -----------------------------
 # Build level
 # -----------------------------
-# path_ue4 path_project -run=resavepackages -buildlighting \
-#                            -AllowCommandletRendering \
-#                            -FILE=STA02.umap
-# path_project = "\"" + path_project + "\""
-# print(path_project)
-
 for i in range(len(lvl_suffix)):
     print('Build Level > ', lvl_suffix[i])
     level = '-map=' + lvl_suffix[i] + '.umap'
@@ -118,18 +112,3 @@ for i in range(len(lvl_suffix)):
                     # '-mapstorebuildlightmaps=GYM01.umap',
                     # '-AutomatedMapBuild',
                     ])
-
-# "f:\Jenkins\EpicGames\UE4-QA\Engine\Binaries\Win64\UE4Editor.exe"
-# "f:\Jenkins\ProVolley\UnrealProjects\ProVolley\ProVolley.uproject"
-# -run=resavepackages -buildtexturestreaming -buildlighting
-# -AllowCommandletRendering -AutoCheckOutPackages -AutoCheckIn
-# -FILE="f:\Jenkins\ProVolley\UnrealProjects\ProVolley\RebuildLigthMaps.txt"
-
-# class SubstanceCheckThread(threading.Thread):
-#
-#     def __init__(self, path_painter):
-#         threading.Thread.__init__(self)
-#         self.path_painter = path_painter
-#
-#     def run(self):
-#         subprocess.call([self.path_painter, '-v'])
