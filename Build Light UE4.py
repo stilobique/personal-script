@@ -1,5 +1,6 @@
-import perforce
 import os
+import subprocess
+import perforce
 import tkinter
 
 # -----------------------------
@@ -49,10 +50,12 @@ lvl_folder = [
 
 revisions = []
 
+path_ue4 = r"E:\WORKS\Perforce\EpicGames\UE4-QA\Engine\Binaries\Win64\UE4Editor.exe"
+path_project = r"E:\WORKS\Perforce\ProVolley\UnrealProjects\ProVolley\ProVolley.uproject"
+
 
 # -----------------------------
-# Connect to perfoce to check all map (and lvl ussat), check if i can't move
-#  or move to next
+# Connect to perfoce to check all map (and lvl ussat)
 # -----------------------------
 p4 = perforce.connect()
 
@@ -67,18 +70,22 @@ for i in range(len(lvl_suffix)):
         filename = depot + filename
         revisions.append(filename)
 
-description = """
-[ProVolley][GFX][LightmapAuto] Automatic Build Lightmap generate for the level
-"""
-cl = p4.findChangelist(description)
-for i in range(len(revisions)):
-    file = revisions[i]
-    p4.ls(file)
-    cl.append(revisions[i])
+    description = """
+    [ProVolley][GFX][LightmapAuto] Automatic Build Lightmap generate for the level
+    """
+    description = description + lvl_name
+    cl = p4.findChangelist(description)
+    for i in range(len(revisions)):
+        file = revisions[i]
+        p4.ls(file)
+        cl.append(revisions[i])
 
-print(len(revisions))
+    revisions.clear()
 
 
+# -----------------------------
+# UI Tkinter
+# -----------------------------
 # fenetre = tkinter.Tk()
 #
 # for lvl_name in levels:
@@ -90,18 +97,36 @@ print(len(revisions))
 #
 # fenetre.mainloop()
 
-
-# path_ue4 = r"E:\WORKS\Perforce\EpicGames\UE4-QA\Engine\Binaries\Win64\UE4Editor.exe"
-# path_project = r"E:\WORKS\Perforce\ProVolley\UnrealProjects\ProVolley\ProVolley.uproject"
-#
+# -----------------------------
+# Build level
+# -----------------------------
 # path_ue4 path_project -run=resavepackages -buildlighting \
-#                            -AllowCommandletRendering -AutoCheckOutPackages \
+#                            -AllowCommandletRendering \
 #                            -FILE=STA02.umap
+# path_project = "\"" + path_project + "\""
+# print(path_project)
 
-
+subprocess.run([path_ue4,
+                path_project,
+                '-run=resavepackages',
+                '-buildlighting',
+                '-allowcommandletrendering',
+                # '-map=GYM01.umap',
+                # '-mapstorebuildlightmaps=GYM01.umap',
+                # '-AutomatedMapBuild',
+                ])
 
 # "f:\Jenkins\EpicGames\UE4-QA\Engine\Binaries\Win64\UE4Editor.exe"
 # "f:\Jenkins\ProVolley\UnrealProjects\ProVolley\ProVolley.uproject"
 # -run=resavepackages -buildtexturestreaming -buildlighting
 # -AllowCommandletRendering -AutoCheckOutPackages -AutoCheckIn
 # -FILE="f:\Jenkins\ProVolley\UnrealProjects\ProVolley\RebuildLigthMaps.txt"
+
+# class SubstanceCheckThread(threading.Thread):
+#
+#     def __init__(self, path_painter):
+#         threading.Thread.__init__(self)
+#         self.path_painter = path_painter
+#
+#     def run(self):
+#         subprocess.call([self.path_painter, '-v'])
