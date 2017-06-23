@@ -1,5 +1,5 @@
-import os
 import perforce
+import os
 import tkinter
 
 # -----------------------------
@@ -7,20 +7,23 @@ import tkinter
 # name, suffix name and -by deduction the path
 # -----------------------------
 lvl_root = '//ProVolley/UnrealProjects/ProVolley/Content/Scenes/'
+lvl_path = "e:/WORKS/Perforce/ProVolley/UnrealProjects/ProVolley/Content" \
+           "/Scenes/"
+
 lvl_suffix = [
     # Gymnasium
     'GYM01',
     'GYM02',
     # Stadium
-    'STA01',
-    'STA02',
-    'STA03',
-    'STA04',
-    'STA05',
-    'STA06',
-    'STA07',
-    'STA08',
-    'STA09',
+    # 'STA01',
+    # 'STA02',
+    # 'STA03',
+    # 'STA04',
+    # 'STA05',
+    # 'STA06',
+    # 'STA07',
+    # 'STA08',
+    # 'STA09',
     # # Training Courts
     # 'TC01',
     # 'TC02'
@@ -30,19 +33,21 @@ lvl_folder = [
     'SanJuanTheater',
     'MittelbrunnZentrum',
     # Stadium
-    'UmmDharbStadium',
-    'ManzoVBArena',
-    'BanKhaemSporthall',
-    'HosojimiCenter',
-    'CharlesFrabetStadium',
-    'JalbarosCenterArena',
-    'CuapixcoEsteColegio',
-    'AbramCenterStadium',
-    'PretovkaClubStadion',
+    # 'UmmDharbStadium',
+    # 'ManzoVBArena',
+    # 'BanKhaemSporthall',
+    # 'HosojimiCenter',
+    # 'CharlesFrabetStadium',
+    # 'JalbarosCenterArena',
+    # 'CuapixcoEsteColegio',
+    # 'AbramCenterStadium',
+    # 'PretovkaClubStadion',
     # Training Courts
     # 'RoyalStratfordGymnasium',
     # 'MartinSherpardHall'
 ]
+
+revisions = []
 
 
 # -----------------------------
@@ -50,14 +55,29 @@ lvl_folder = [
 #  or move to next
 # -----------------------------
 p4 = perforce.connect()
+
+
 for i in range(len(lvl_suffix)):
     lvl_name = lvl_suffix[i]
     lvl_end = lvl_folder[i]
-    map = lvl_root + lvl_name + '_' + lvl_end + '/' + lvl_name + '.umap'
+    map = lvl_path + lvl_name + '_' + lvl_end + '/'
+    depot = lvl_root + lvl_name + '_' + lvl_end + '/'
 
-    i = +1
-    # revision = p4.ls(map)
-    print(map)
+    for filename in os.listdir(os.path.normpath(map)):
+        filename = depot + filename
+        revisions.append(filename)
+
+description = """
+[ProVolley][GFX][LightmapAuto] Automatic Build Lightmap generate for the level
+"""
+cl = p4.findChangelist(description)
+for i in range(len(revisions)):
+    file = revisions[i]
+    p4.ls(file)
+    cl.append(revisions[i])
+
+print(len(revisions))
+
 
 # fenetre = tkinter.Tk()
 #
