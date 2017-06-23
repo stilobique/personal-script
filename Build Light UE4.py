@@ -106,15 +106,18 @@ for i in range(len(lvl_suffix)):
 # path_project = "\"" + path_project + "\""
 # print(path_project)
 
-subprocess.run([path_ue4,
-                path_project,
-                '-run=resavepackages',
-                '-buildlighting',
-                '-allowcommandletrendering',
-                # '-map=GYM01.umap',
-                # '-mapstorebuildlightmaps=GYM01.umap',
-                # '-AutomatedMapBuild',
-                ])
+for i in range(len(lvl_suffix)):
+    print('Build Level > ', lvl_suffix[i])
+    level = '-map=' + lvl_suffix[i] + '.umap'
+    subprocess.run([path_ue4,
+                    path_project,
+                    '-run=resavepackages',
+                    '-buildlighting',
+                    '-allowcommandletrendering',
+                    level,
+                    # '-mapstorebuildlightmaps=GYM01.umap',
+                    # '-AutomatedMapBuild',
+                    ])
 
 # "f:\Jenkins\EpicGames\UE4-QA\Engine\Binaries\Win64\UE4Editor.exe"
 # "f:\Jenkins\ProVolley\UnrealProjects\ProVolley\ProVolley.uproject"
