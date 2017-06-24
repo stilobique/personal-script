@@ -15,7 +15,7 @@ env_names = [
 # --------
 fenetre = tkinter.Tk()
 
-label = tkinter.Label(fenetre, text="Hello World")
+label = tkinter.Label(fenetre, text="Choose your levels", anchor="w")
 label.pack()
 
 # --------
@@ -25,5 +25,7 @@ for i in range(len(env_names)):
     buttons = tkinter.Checkbutton(fenetre, text=env_names[i])
 
     buttons.pack()
+
+tkinter.Button(fenetre, text="Build").pack()
 
 fenetre.mainloop()
