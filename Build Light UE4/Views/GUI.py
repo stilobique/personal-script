@@ -13,19 +13,46 @@ env_names = [
 # --------
 # UI
 # --------
-fenetre = tkinter.Tk()
 
-label = tkinter.Label(fenetre, text="Choose your levels", anchor="w")
-label.pack()
+class main_tk(tkinter.Tk):
+    def __init__(self, parent):
+        tkinter.Tk.__init__(self, parent)
+        self.parent = parent
+        self.initialize()
 
-# --------
-# Add more widget
-# --------
-for i in range(len(env_names)):
-    buttons = tkinter.Checkbutton(fenetre, text=env_names[i])
+    def initialize(self):
+        self.grid()
 
-    buttons.pack()
+        self.entry = tkinter.Entry(self)
+        self.entry.grid(column=0, row=0, sticky='EW')
+        self.entry.bind("<Return>", self.OnPressEnter)
 
-tkinter.Button(fenetre, text="Build").pack()
+        button = tkinter.Button(self, text=u'Build Light',
+                                command=self.OnButtonClick)
+        button.grid(column=1, row=0)
 
-fenetre.mainloop()
+        self.labelVariable = tkinter.StringVar()
+        label = tkinter.Label(self, textvariable=self.labelVariable,
+                              anchor='w',
+                              fg='white',
+                              bg='blue')
+        label.grid(column=0, row=1, columnspan=2, sticky='EW')
+
+        for i in range(len(env_names)):
+            buttons = tkinter.Checkbutton(self, text=env_names[i], anchor='w')
+            buttons.grid(columnspan=2, sticky='EW')
+
+        self.grid_columnconfigure(0, weight=1)
+        self.resizable(True, False)
+
+    def OnButtonClick(self):
+        self.labelVariable.set("You click the button")
+
+    def OnPressEnter(self, event):
+        self.labelVariable.set("You pressed enter")
+
+
+if __name__ == "__main__":
+    app = main_tk(None)
+    app.title('Build Light')
+    app.mainloop()

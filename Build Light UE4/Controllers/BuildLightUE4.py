@@ -82,33 +82,22 @@ for i in range(len(lvl_suffix)):
 
     revisions.clear()
 
-
-# -----------------------------
-# UI Tkinter
-# -----------------------------
-# fenetre = tkinter.Tk()
-#
-# for lvl_name in levels:
-#     suffix = lvl_name
-#     name = 'button_' + lvl_name
-#     name = tkinter.Checkbutton(fenetre, text=lvl_name)
-#     name.pack()
-#
-#
-# fenetre.mainloop()
-
 # -----------------------------
 # Build level
 # -----------------------------
-for i in range(len(lvl_suffix)):
-    print('Build Level > ', lvl_suffix[i])
-    level = '-map=' + lvl_suffix[i] + '.umap'
-    subprocess.run([path_ue4,
-                    path_project,
-                    '-run=resavepackages',
-                    '-buildlighting',
-                    '-allowcommandletrendering',
-                    level,
-                    # '-mapstorebuildlightmaps=GYM01.umap',
-                    # '-AutomatedMapBuild',
-                    ])
+class BuilLightmap():
+    for i in range(len(lvl_suffix)):
+        print('Build Level > ', lvl_suffix[i])
+        level = '-map=' + lvl_suffix[i] + '.umap'
+        subprocess.run([path_ue4,
+                        path_project,
+                        '-run=resavepackages',
+                        '-buildlighting',
+                        '-allowcommandletrendering',
+                        level,
+                        # '-mapstorebuildlightmaps=GYM01.umap',
+                        # '-AutomatedMapBuild',
+                        ])
+
+class BuildTest():
+    texte_test = "Alors ??"
