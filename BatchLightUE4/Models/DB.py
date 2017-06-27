@@ -8,21 +8,21 @@ lvl_path = "e:/WORKS/Perforce/ProVolley/UnrealProjects/ProVolley/Content" \
 
 levels_dict = {
     # Gymnasium
-    1: ('GYM01', 'SanJuanTheater', 'False'),
-    2: ('GYM02', 'MittelbrunnZentrum', 'False'),
+    1: ('GYM01', 'SanJuanTheater'),
+    2: ('GYM02', 'MittelbrunnZentrum'),
     # Stadium
-    3: ('STA01', 'UmmDharbStadium', 'False'),
-    4: ('STA02', 'ManzoVBArena', 'False'),
-    # 5: ('STA03', 'BanKhaemSporthall', 'False'),
-    # 6: ('STA04', 'HosojimiCenter', 'False'),
-    # 7: ('STA05', 'CharlesFrabetStadium', 'False'),
-    # 8: ('STA06', 'JalbarosCenterArena', 'False'),
-    # 9: ('STA07', 'CuapixcoEsteColegio', 'False'),
-    # 10: ('STA08', 'AbramCenterStadium', 'False'),
-    # 11: ('STA09', 'PretovkaClubStadion', 'False'),
+    3: ('STA01', 'UmmDharbStadium'),
+    4: ('STA02', 'ManzoVBArena'),
+    5: ('STA03', 'BanKhaemSporthall'),
+    6: ('STA04', 'HosojimiCenter'),
+    7: ('STA05', 'CharlesFrabetStadium'),
+    8: ('STA06', 'JalbarosCenterArena'),
+    9: ('STA07', 'CuapixcoEsteColegio'),
+    10: ('STA08', 'AbramCenterStadium'),
+    11: ('STA09', 'PretovkaClubStadion'),
     # Training Courts
-    # 12: ('TC01', 'RoyalStratfordGymnasium', 'False'),
-    # 13: ('TC02', 'MartinSherpardHall', 'False'),
+    12: ('TC01', 'RoyalStratfordGymnasium'),
+    13: ('TC02', 'MartinSherpardHall'),
 }
 
 levels_rendering = []
