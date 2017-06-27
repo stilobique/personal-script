@@ -1,4 +1,4 @@
-import tkinter
+import tkinter as tk
 import tkinter.messagebox as msg
 from BatchLightUE4.Models.DB import levels_dict
 from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
@@ -6,91 +6,64 @@ from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
 # --------
 # UI
 # --------
-
-class main_tk(tkinter.Tk):
+class main_tk(tk.Tk):
     def __init__(self, parent):
-        tkinter.Tk.__init__(self, parent)
+        tk.Tk.__init__(self, parent)
         self.parent = parent
         self.env_names = levels_dict
         self.buttons = {}
-
-        self.value = []
-        for i in range(levels_dict):
-            name = levels_dict.values()
-            self.name = tkinter.StringVar()
-            self.value.append(self.name)
-            print(self.name)
+        self.value_checkbox = [1,2,3,4,5,6,7,8,9,10,11]
         self.initialize()
 
     def initialize(self):
         self.grid()
 
-        frame_lvl = tkinter.LabelFrame(self,
-                                       text="All Levels",
-                                       padx=10,
-                                       pady=10)
+        frame_lvl = tk.LabelFrame(self,
+                                  text="All Levels",
+                                  padx=10,
+                                  pady=10)
         frame_lvl.grid(column=0, row=0)
+
+        self.labelVariable = tk.StringVar()
+        label = tk.Label(self, textvariable=self.labelVariable,
+                         anchor='w',
+                         fg='white',
+                         bg='blue')
+        label.grid(sticky='EW')
+
         env_names = self.env_names
         for cle, level in env_names.items():
-            self.value = tkinter.StringVar()
-            self.buttons[cle] = tkinter.Checkbutton(frame_lvl, text=level,
-                                                    variable=self.value,
-                                                    # state='active',
-                                                    # state='disabled',
-                                                    state='normal',
-                                                    anchor='w',)
+            self.value_checkbox[cle] = tk.BooleanVar(self, '0')
+            self.buttons[cle] = tk.Checkbutton(frame_lvl, text=level,
+                                               variable=self.value_checkbox[cle],
+                                               anchor='w')
             self.buttons[cle].grid(columnspan=2, sticky='EW')
+            print(self.value_checkbox[cle].get())
 
+        # ------------------------------------------------
         self.grid_columnconfigure(0, weight=1)
         self.resizable(True, False)
 
-        separator = tkinter.Label(self)
+        separator = tk.Label(self)
         separator.grid()
 
-        self.labelVariable = tkinter.StringVar()
-        label = tkinter.Label(self, textvariable=self.labelVariable,
-                              anchor='w',
-                              fg='white',
-                              bg='blue')
-        label.grid(sticky='EW')
-
-        separator = tkinter.Label(self)
+        separator = tk.Label(self)
         separator.grid()
 
-        btn_select_all = tkinter.Button(self,
-                                        text=u'Select All',
-                                        command=self.SelectAll)
+        btn_select_all = tk.Button(self,
+                                   text=u'Select All',
+                                   command=self.SelectAll)
         btn_select_all.grid(column=0)
-
-        btn_unselect_all = tkinter.Button(self,
-                                          text=u'Unselect All',
-                                          command=self.UnSelectAll)
+        btn_unselect_all = tk.Button(self,
+                                     text=u'Unselect All',
+                                     command=self.UnSelectAll)
         btn_unselect_all.grid()
 
-        button = tkinter.Button(self,
-                                text=u'Build Light',
-                                command=self.OnButtonClick)
+        button = tk.Button(self,
+                           text=u'Build Light',
+                           command=self.OnButtonClick)
         button.grid()
-        separator = tkinter.Label(self)
-        separator.grid()
 
-        # Test Zone
-        self.checkstate = tkinter.StringVar()
-        testcheck = tkinter.Checkbutton(self, text='Test',
-                                        variable=self.checkstate,
-                                        anchor='w',)
-        testcheck.grid(columnspan=2, sticky='EW')
-        # print(testcheck.state)
-        btn_test = tkinter.Button(self,
-                                        text=u'Test Checkbox',
-                                        command=self.TestEvent)
-        btn_test.grid(column=0)
-
-    # Gestion All Events
-    def TestEvent(self):
-        text = self.checkstate.get()
-        print(self.checkstate.get())
-        self.labelVariable.set(text)
 
     def SelectAll(self):
         for cle in self.buttons.keys():
@@ -114,7 +87,14 @@ class main_tk(tkinter.Tk):
         #     buildmap()
 
     def OnCheck(self):
-        # value = self.checkboxVariable.get()
-        self.labelVariable.set("value")
+        print("Check Test")
+        value = self.value_checkbox.get()
+        print(value)
+        # for i in range(len(self.buttons)):
+        #     print(self.buttons[i])
+            # state = self.buttons[i]
+            # value = state
+            # print(value)
+            # self.labelVariable.set(str(value))
 
 # main_tk(None).mainloop()

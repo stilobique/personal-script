@@ -8,13 +8,13 @@ lvl_path = "e:/WORKS/Perforce/ProVolley/UnrealProjects/ProVolley/Content" \
 
 levels_dict = {
     # Gymnasium
-    # 1: ('GYM01', 'SanJuanTheater', 'False'),
-    # 2: ('GYM02', 'MittelbrunnZentrum', 'False'),
+    1: ('GYM01', 'SanJuanTheater', 'False'),
+    2: ('GYM02', 'MittelbrunnZentrum', 'False'),
     # Stadium
     # 3: ('STA01', 'UmmDharbStadium', 'False'),
     # 4: ('STA02', 'ManzoVBArena', 'False'),
     # 5: ('STA03', 'BanKhaemSporthall', 'False'),
-    6: ('STA04', 'HosojimiCenter', 'False'),
+    # 6: ('STA04', 'HosojimiCenter', 'False'),
     # 7: ('STA05', 'CharlesFrabetStadium', 'False'),
     # 8: ('STA06', 'JalbarosCenterArena', 'False'),
     # 9: ('STA07', 'CuapixcoEsteColegio', 'False'),
