@@ -49,11 +49,13 @@ def perforcecheckout():
 # -----------------------------
 # Build level
 # -----------------------------
-def buildmap():
-    for cle, value in levels_dict.items():
-        lvl_name = value[0]
-        print('Build Level > ', lvl_name)
+def buildmap(levels_used):
+    for i in levels_used:
+        levels_dict.get(i)
+        level = levels_dict[i]
+        lvl_name = level[0]
         level = '-map=' + lvl_name + '.umap'
+        print(level)
         subprocess.run([path_ue4,
                         path_project,
                         '-run=resavepackages',

@@ -1,7 +1,8 @@
 import tkinter as tk
 import tkinter.messagebox as msg
+from BatchLightUE4.Controllers.BuildLightUE4 import buildmap
 from BatchLightUE4.Models.DB import levels_dict, levels_rendering
-from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
+# from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
 
 # --------
 # UI
@@ -83,4 +84,4 @@ class main_tk(tk.Tk):
         self.labelVariable.set("Build")
         if msg.askyesno('Launch Build', 'Lancement du calcul ?'):
             # perforcecheckout()
-            buildmap()
+            buildmap(levels_rendering)

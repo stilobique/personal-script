@@ -23,8 +23,9 @@ levels_dict = {
     # Training Courts
     # 12: ('TC01', 'RoyalStratfordGymnasium', 'False'),
     # 13: ('TC02', 'MartinSherpardHall', 'False'),
-
 }
+
+levels_rendering = []
 
 revisions = []
 
