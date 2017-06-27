@@ -13,6 +13,8 @@ class main_tk(tk.Tk):
         self.env_names = levels_dict
         self.buttons = {}
         self.value_checkbox = [1,2,3,4,5,6,7,8,9,10,11]
+        self.check_on = []
+        self.check_off = []
         self.initialize()
 
     def initialize(self):
@@ -35,10 +37,9 @@ class main_tk(tk.Tk):
         for cle, level in env_names.items():
             self.value_checkbox[cle] = tk.BooleanVar(self, '0')
             self.buttons[cle] = tk.Checkbutton(frame_lvl, text=level,
-                                               variable=self.value_checkbox[cle],
-                                               anchor='w')
+                                                variable=self.value_checkbox[cle],
+                                                anchor='w')
             self.buttons[cle].grid(columnspan=2, sticky='EW')
-            print(self.value_checkbox[cle].get())
 
         # ------------------------------------------------
         self.grid_columnconfigure(0, weight=1)
@@ -76,25 +77,39 @@ class main_tk(tk.Tk):
     def OnButtonClick(self):
         self.labelVariable.set("You click the button")
 
-        for cle in levels_dict.keys():
-            if levels_dict.get(cle) == self.buttons.get(cle):
-                print("Level > ", levels_dict.get(cle))
-                print("Buton > ", self.buttons.get(cle))
+        for key, value in self.buttons.items():
+            check = self.value_checkbox[key].get()
+            if check is True:
+                print("Key Valid", key)
+            else:
+                print("Key Non Valid, don't rendering", key)
+            # if value[str(key)].get():
+            #     print("Cle Get", key)
+            # if levels_dict.get(cle) == self.buttons.get(cle):
+            #     print("Level > ", levels_dict.get(cle))
+            #     print("Buton > ", self.buttons.get(cle))
 
-            print(self.value)
         # if msg.askyesno('Launch Build', 'Lancement du calcul ?'):
         #     perforcecheckout()
         #     buildmap()
 
-    def OnCheck(self):
-        print("Check Test")
-        value = self.value_checkbox.get()
-        print(value)
+    # def OnCheck(self):
+    #     nbr = self
+    #     print(self.buttons.keys(nbr))
+    #     print("Nom variable > ", self.value_checkbox[nbr].get)
+        # value = self.value_checkbox.get()
+        # print(value)
         # for i in range(len(self.buttons)):
         #     print(self.buttons[i])
             # state = self.buttons[i]
             # value = state
             # print(value)
-            # self.labelVariable.set(str(value))
+        # for key, value in self.buttons.items():
+        #     if not value.get():
+        #         print('trerr')
+            # nbr = self.buttons[i]
+            # self.labelVariable.set(str(nbr))
+            # print("btn > ", nbr)
+            # print("Iteration > ", i)
 
 # main_tk(None).mainloop()
