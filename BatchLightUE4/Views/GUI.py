@@ -1,35 +1,39 @@
 import tkinter as tk
 import tkinter.messagebox as msg
-from BatchLightUE4.Controllers.BuildLightUE4 import buildmap
 from BatchLightUE4.Models.DB import levels_dict, levels_rendering
-# from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
+from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
 
 # --------
 # UI
 # --------
-class main_tk(tk.Tk):
+class UIBuildMap(tk.Tk):
     def __init__(self, parent):
         tk.Tk.__init__(self, parent)
         self.parent = parent
         self.env_names = levels_dict
         self.buttons = {}
-        self.value_checkbox = [1,2,3,4,5,6,7,8,9,10,11]
+        self.value_checkbox = [0]
+        for i in levels_dict.keys():
+            self.value_checkbox.append(i)
         self.initialize()
 
     def initialize(self):
         self.grid()
 
+        tk.Button(self, text=u'Select All', command=self.SelectAll).grid(
+            column=0, row=0, padx=5, pady=5, sticky='EW')
+        tk.Button(self, text=u'Unselect All',
+                  command=self.UnSelectAll).grid(column=1, row=0, padx=5,
+                                                 pady=5, sticky='EW')
+
         frame_lvl = tk.LabelFrame(self,
                                   text="All Levels",
-                                  padx=10,
-                                  pady=10)
-        frame_lvl.grid(column=0, row=0)
+                                  padx=5,
+                                  pady=5)
+        frame_lvl.grid(columnspan=2)
 
         self.labelVariable = tk.StringVar()
-        label = tk.Label(self, textvariable=self.labelVariable,
-                         anchor='w',
-                         fg='white',
-                         bg='blue')
+        label = tk.Label(self, textvariable=self.labelVariable, anchor='w')
         label.grid(sticky='EW')
 
         env_names = self.env_names
@@ -44,44 +48,36 @@ class main_tk(tk.Tk):
         self.grid_columnconfigure(0, weight=1)
         self.resizable(True, False)
 
-        separator = tk.Label(self)
-        separator.grid()
-
-        separator = tk.Label(self)
-        separator.grid()
-
-        btn_select_all = tk.Button(self,
-                                   text=u'Select All',
-                                   command=self.SelectAll)
-        btn_select_all.grid(column=0)
-        btn_unselect_all = tk.Button(self,
-                                     text=u'Unselect All',
-                                     command=self.UnSelectAll)
-        btn_unselect_all.grid()
-
-        button = tk.Button(self,
-                           text=u'Build Light',
-                           command=self.OnButtonClick)
-        button.grid()
+        tk.Button(self,
+                  text=u'Build Light',
+                  command=self.OnButtonClick).grid(columnspan=2,
+                                                   sticky='EW',padx=5, pady=5,)
 
 
     def SelectAll(self):
         for cle in self.buttons.keys():
             self.buttons[cle].select()
+        self.labelVariable.set("Select all Levels")
 
     def UnSelectAll(self):
         for cle in self.buttons.keys():
             self.buttons[cle].deselect()
+        self.labelVariable.set("Clear list selection")
 
     def OnButtonClick(self):
-
+        text = ""
         for key, value in self.buttons.items():
             check = self.value_checkbox[key].get()
             if check is True:
                 levels_rendering.append(key)
+                nbr = len(levels_rendering)
+                text = "Build "
+                text = text + str(nbr) + " level(s)"
+            elif len(levels_rendering) == 0:
+                text = "Empty Choice"
 
         print(levels_rendering)
-        self.labelVariable.set("Build")
+        self.labelVariable.set(text)
         if msg.askyesno('Launch Build', 'Lancement du calcul ?'):
             # perforcecheckout()
             buildmap(levels_rendering)
