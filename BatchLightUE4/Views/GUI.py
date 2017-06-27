@@ -36,6 +36,9 @@ class UIBuildMap(tk.Tk):
         label = tk.Label(self, textvariable=self.labelVariable, anchor='w')
         label.grid(sticky='EW')
 
+        tk.Label(frame_lvl, text='---- Gymnasium', anchor='w').grid(
+            columnspan=2, sticky='EW')
+
         env_names = self.env_names
         for cle, level in env_names.items():
             self.value_checkbox[cle] = tk.BooleanVar(self, '0')
@@ -43,6 +46,15 @@ class UIBuildMap(tk.Tk):
                                                 variable=self.value_checkbox[cle],
                                                 anchor='w')
             self.buttons[cle].grid(columnspan=2, sticky='EW')
+
+            if level[0] == 'GYM02':
+                tk.Label(frame_lvl, text='---- Stadium', anchor='w').grid(
+                    columnspan=2, sticky='EW')
+
+            if level[0] == 'STA09':
+                tk.Label(frame_lvl, text='---- Training Cour',
+                         anchor='w').grid(
+                    columnspan=2, sticky='EW')
 
         # ------------------------------------------------
         self.grid_columnconfigure(0, weight=1)
