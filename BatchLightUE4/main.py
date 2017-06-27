@@ -1,4 +1,4 @@
-from BatchLightUE4.Views.GUI import main_tk
+from BatchLightUE4.Views.GUI import UIBuildMap
 
 class BatchBuildSetup:
     def __init__(self):
@@ -7,6 +7,6 @@ class BatchBuildSetup:
 app_name = BatchBuildSetup().nom
 
 if __name__ == "__main__":
-    app = main_tk(None)
+    app = UIBuildMap(None)
     app.title(app_name)
     app.mainloop()
