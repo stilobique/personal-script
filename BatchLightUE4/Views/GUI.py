@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.filedialog as tkfile
 import tkinter.messagebox as msg
 from BatchLightUE4.Models.DB import levels_dict, levels_rendering
 from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
@@ -19,6 +20,7 @@ class UIBuildMap(tk.Tk):
 
     def initialize(self):
         self.grid()
+        self.iconbitmap(r'.\Ressources\BlackSheep.ico')
 
         tk.Button(self, text=u'Select All', command=self.SelectAll).grid(
             column=0, row=0, padx=5, pady=5, sticky='EW')
@@ -57,6 +59,7 @@ class UIBuildMap(tk.Tk):
                     columnspan=2, sticky='EW')
 
         # ------------------------------------------------
+        # Launch Programm
         self.grid_columnconfigure(0, weight=1)
         self.resizable(True, False)
 
@@ -65,7 +68,30 @@ class UIBuildMap(tk.Tk):
                   command=self.OnButtonClick).grid(columnspan=2,
                                                    sticky='EW',padx=5, pady=5,)
 
+        # ------------------------------------------------
+        # Setup path
+        text = "C:/UE4EditorPath/UE4Editor.exe"
+        self.UE4Path_text = tk.StringVar(self, value=text)
+        UE4Path = tk.Entry(self,
+                           textvariable=self.UE4Path_text)
+        UE4Path.grid(column=0, row=4, sticky='EW', padx=5, pady=5)
+        UE4Btn = tk.Button(self,
+                           text=u'Choose File',
+                           command=self.OpenFileEditor)
+        UE4Btn.grid(column=1, row=4, sticky='EW', padx=5, pady=5)
 
+        text = "C:/UE4EditorPath/Project.uproject"
+        self.project_text = tk.StringVar(self, value=text)
+        ProjectPath = tk.Entry(self,
+                               textvariable=self.project_text,)
+        ProjectPath.grid(column=0, row=5, sticky='EW', padx=5, pady=5)
+        ProjectBtn = tk.Button(self,
+                               text=u'Choose File',
+                               command=self.OpenFileProject)
+        ProjectBtn.grid(column=1, row=5, sticky='EW', padx=5, pady=5)
+
+        # ------------------------------------------------
+        # Event and Command
     def SelectAll(self):
         for cle in self.buttons.keys():
             self.buttons[cle].select()
@@ -75,6 +101,16 @@ class UIBuildMap(tk.Tk):
         for cle in self.buttons.keys():
             self.buttons[cle].deselect()
         self.labelVariable.set("Clear list selection")
+
+    def OpenFileEditor(self):
+        self.UE4Path_text.get()
+        text = tkfile.askopenfilename()
+        self.UE4Path_text.set(text)
+
+    def OpenFileProject(self):
+        text = "UE4 Project"
+        self.project_text.get()
+        self.project_text.set(text)
 
     def OnButtonClick(self):
         text = ""
@@ -91,5 +127,5 @@ class UIBuildMap(tk.Tk):
         print(levels_rendering)
         self.labelVariable.set(text)
         if msg.askyesno('Launch Build', 'Lancement du calcul ?'):
-            # perforcecheckout()
+            perforcecheckout()
             buildmap(levels_rendering)
