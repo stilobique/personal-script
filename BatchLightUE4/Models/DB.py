@@ -1,3 +1,5 @@
+import os
+import json
 # -----------------------------
 # Generate all data needs to know enviroment we want build, the stadium
 # name, suffix name and -by deduction the path
@@ -29,5 +31,14 @@ levels_rendering = []
 
 revisions = []
 
+if os.path.isfile("Models/setup.json"):
+    with open('Models/setup.json') as f:
+        paths_dict = json.load(f)
+
+else:
+    paths_dict = {
+        "UE4 Editor": "UE4Editor.exe",
+        "UE4 Project": "Project.uproject",
+    }
 path_ue4 = r"E:\WORKS\Perforce\EpicGames\UE4-QA\Engine\Binaries\Win64\UE4Editor.exe"
 path_project = r"E:\WORKS\Perforce\ProVolley\UnrealProjects\ProVolley\ProVolley.uproject"
