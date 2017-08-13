@@ -1,7 +1,8 @@
 import tkinter as tk
 import tkinter.filedialog as tkfile
 import tkinter.messagebox as msg
-from BatchLightUE4.Models.DB import levels_dict, levels_rendering
+import json
+from BatchLightUE4.Models.DB import levels_dict, levels_rendering, paths_dict
 from BatchLightUE4.Controllers.BuildLightUE4 import perforcecheckout, buildmap
 
 # --------
@@ -70,7 +71,7 @@ class UIBuildMap(tk.Tk):
 
         # ------------------------------------------------
         # Setup path
-        text = "C:/UE4EditorPath/UE4Editor.exe"
+        text = paths_dict["UE4 Editor"]
         self.UE4Path_text = tk.StringVar(self, value=text)
         UE4Path = tk.Entry(self,
                            textvariable=self.UE4Path_text)
@@ -80,10 +81,10 @@ class UIBuildMap(tk.Tk):
                            command=self.OpenFileEditor)
         UE4Btn.grid(column=1, row=4, sticky='EW', padx=5, pady=5)
 
-        text = "C:/UE4EditorPath/Project.uproject"
-        self.project_text = tk.StringVar(self, value=text)
+        text = paths_dict["UE4 Project"]
+        self.UE4Project_text = tk.StringVar(self, value=text)
         ProjectPath = tk.Entry(self,
-                               textvariable=self.project_text,)
+                               textvariable=self.UE4Project_text,)
         ProjectPath.grid(column=0, row=5, sticky='EW', padx=5, pady=5)
         ProjectBtn = tk.Button(self,
                                text=u'Choose File',
@@ -105,12 +106,20 @@ class UIBuildMap(tk.Tk):
     def OpenFileEditor(self):
         self.UE4Path_text.get()
         text = tkfile.askopenfilename()
+        paths_dict["UE4 Editor"] = text
         self.UE4Path_text.set(text)
+        with open('Models/setup.json', 'w') as f:
+            json.dump(paths_dict, f, indent=4)
 
     def OpenFileProject(self):
-        text = "UE4 Project"
-        self.project_text.get()
-        self.project_text.set(text)
+        self.UE4Project_text.get()
+        text = tkfile.askopenfilename()
+        paths_dict["UE4 Project"] = text
+        print("Text Field > ", text)
+        print(paths_dict)
+        self.UE4Project_text.set(text)
+        with open('Models/setup.json', 'w') as f:
+            json.dump(paths_dict, f, indent=4)
 
     def OnButtonClick(self):
         text = ""
